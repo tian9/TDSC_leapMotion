@@ -42,7 +42,7 @@
 
 
 
-In this section, we elaborate how to extract features at the frame-, stroke segment- and style-levels, respectively (shown in Figure~\ref{fig:featureFlow}). Given a sample, we extract frame-level features (denoted by $f_f^i$ for the $i$-th frame) and then combine the features of $L_{ss}$ consecutive frames to generate a stroke segment-level feature (denoted by $f_{ss}^i$ for the $i$-th stroke segment). After finding the index of the primitive that is closest to each stroke segment, we obtain a  sequence of indices. Then, the occurrences of stroke segment-transition pairs are counted for creating a style-level feature. Then, we discuss the SVM classification for verifying users. 
+In this section, we elaborate how to extract features at the frame-, stroke-segment-, and style-levels, respectively (shown in Figure~\ref{fig:featureFlow}). Given a sample, we extract frame-level features (denoted by $f_f^i$ for the $i$-th frame) and then combine the features of $L_{ss}$ consecutive frames to generate a stroke segment-level feature (denoted by $f_{ss}^i$ for the $i$-th stroke segment). After finding the index of the primitive that is closest to each stroke segment, we obtain a  sequence of indices. Then, the occurrences of stroke segment-transition pairs are counted for creating a style-level feature. Then, we discuss the SVM classification for verifying users. 
 
 
 
@@ -211,7 +211,7 @@ $$\sum^n_{i=1} \left \lfloor \frac{L^i_w}{(1-r)L_{ss}}\right \rfloor * 19. $$
 %
 To reduce the dimension of style-level features, we first quantize the stroke segment-level features.
 We use training samples to learn stroke segment primitives. Specifically, for each sample, we extract all the stroke segments from all the training samples. % and their stroke segment-level features. 
-We then use $K$-means algorithm to group the stroke segment-level features into $K$ clusters.
+We then use a $K$-means algorithm to group the stroke segment-level features into $K$ clusters.
 The center of each cluster is considered as a primitive of stroke segment-level features. With the $K$ clusters, we achieve a vocabulary with $K$ primitives.
 We index these $K$ primitives consecutively from 1 to $K$. With these primitives, we can quantize any stroke segment-level feature, for both the training samples and the testing samples, by finding its nearest primitive and assigning the stroke segment with the index of the corresponding primitive.
 
@@ -232,10 +232,10 @@ Figure~\ref{tab:sample-para-whole} shows examples of the constructed style-level
 
 
 
-We choose SVM~\cite{light-svm} as the classification algorithm, because SVM is relatively efficient and showed accurate classification results in many real-life systems. SVM utilizes a ``kernal trick'' to generalize data well even for high-dimension features. \jingap{In our experiments, we choose the (Gaussian) radial basis function (RBF) kernel. We use grid search method to optimize  RBF SVM parameters $C$ and $\gamma$~\cite{grid-search}, and other parameter are set as default . Finally, we set $\gamma$ as $0.01$ and the penalty parameter $C$ as 5000.  }
+We choose SVM~\cite{light-svm} as the classification algorithm, because SVM is relatively efficient and showed accurate classification results in many real-life systems. SVM utilizes a ``kernal trick'' to generalize data well even for high-dimension features. \jingap{In our experiments, we choose the (Gaussian) radial basis function (RBF) kernel. We use grid search method to optimize  RBF SVM parameters $C$ and $\gamma$~\cite{grid-search}, and other parameters are set as default. Finally, we set $\gamma$ as $0.01$ and the penalty parameter $C$ as 5000.  }
 
 
-For challenge-response authentication, the main goal of the classifier is to verify a user's identity, thus we train multiple binary-class classifiers for all users. \jingap{We split the input data into two parts: training data and testing data. The training data are used to model the writing style of a user, and a testing sample is used to test a user's writing style, thus a sample should include writing style representations of the user. Since the writing styles are extracted from stroke segments instead of letters.  Thus, as long as enough stroke segments are used for training and testing samples, MoCRA can model a user's writing style reliably.
+For challenge-response authentication, the main goal of the classifier is to verify a user's identity, thus we train multiple binary-class classifiers for all users. \jingap{We split the input data into two parts: training data and testing data. The training data are used to model the writing style of a user, and  testing samples are used to test a user's writing style, thus samples should include writing style representations of the user. Since the writing styles are extracted from stroke segments instead of letters.  Thus, as long as enough stroke segments are used for training and testing samples, MoCRA can model a user's writing style reliably.
 We assume the content of the challenge has a fair distribution, so the length of a sample (i.e., how many letters, stroke segments or frames in a sample) indirectly shows the representations of the writing style. We will examine appropriate length in Section~\ref{sec:para}.}
 
 For each user, we take training samples from this user as positive samples and the other users' training samples as negative samples and train a binary SVM classifier. Given a new test sample and the user identity it claims, we test it with the user's binary SVM classifier. The sample will be authorized if the classifier returns a positive response, and be rejected with a negative result. In addition, the classifiers should reject any impostors, the samples of which are never part of the training data.
@@ -260,7 +260,7 @@ For each user, we take training samples from this user as positive samples and t
 \end{tabular}
 \vspace{-0mm}
 \caption {{style-level features (co-occurrence matrix) extracted from samples of two users. We choose $K=100$ for illustration purpose.
- As the sample length increases, the shape of co-occurrence matrices remain similar, but the value for each element (i.e. the occurences) increases. The results suggest that the matrices can model handwriting styles.
+ As the sample length increases, the shape of co-occurrence matrices remain similar, but the value for each element (i.e. the occurrences) increases. The results suggest that the matrices can model handwriting styles.
  }\vspace{-2mm}}\label{tab:sample-para-whole}
 \end{figure}
 

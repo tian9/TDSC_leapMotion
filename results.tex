@@ -23,7 +23,7 @@ We first collect normal data for 24 subjects independently, i.e., each subject w
 %\scriptsize
 \centering
 \vspace{-0mm}
-  \caption {\jing{The EER of one victim subject attacked by $23$ Non-Observing insiders with various parameters. The results are averaged with 24 victim subjects. We varied one parameter at a time and use the following default parameters: one sample contains no more than 2,000 frames; each experiment uses 30 samples per subject for training and the rest for testing; each stroke segment contains 12 frames; each experiment has a vocabulary size of $K=200$.}  
+  \caption {\jing{The EER of one victim subject attacked by $23$ Non-Observing insiders with various parameters. The results are averaged with 24 victim subjects. We varied one parameter at a time and use the following default parameters: one sample contains no more than 2,000 frames; each experiment uses 30 samples per subject for training and the rest for testing; each stroke segment  contains 12 frames; each experiment has a vocabulary size of $K=200$.}  
 \label{tab: AllRes}}
 \begin{tabular}{|r|cccccc|} \hline
 %\multicolumn{7}{|c|}{{   }} \\
@@ -119,7 +119,7 @@ where $i=1,2,\cdots, m$ indicates the $i$-th round of experiments. We plot the s
 
 
  
-\subsubsection{Results for \jingap{Non-Observing} Attackers}
+\subsubsection{Results for Non-Observing Attackers}
 \label{sec:para}
 
 \begin{figure}[!b]
@@ -137,8 +137,13 @@ where $i=1,2,\cdots, m$ indicates the $i$-th round of experiments. We plot the s
 
 
 \textbf{Non-Observing Insiders.} 
-\jingap{ \textit{Twenty-four classifiers are trained using the training data from 24 subjects and are tested using the remaining data. For each classifier, one subject act as the victim (positive training samples) and the rest 23 ones act as attackers (negative training samples). To test the classifiers, the data from the 24 subjects that are not used for training are used for testing.}}
-To evaluate performance under \jingap{Non-Observing insiders, we utilize the data from the 24 subjects and do not include data from subjects who act as observing attackers.}  Each subject is considered as a victim and the remaining $23$ subjects are considered as attackers.  Results are based on default parameters (one sample contains no more than $2,000$ frames; a training set contains $30$ samples per subject, the rests are for testing; each stroke segment contains $12$ frames; the vocabulary size equals to $200$). Figure~\ref{fig:random} shows the results where each ROC curve represents one subject. We observe that for almost all the subjects, the performance under Non-Observing attacks are close to ideal, near $100\%$ TPR, 0 FPR. \jingap{The worst cases are mainly caused by some of their samples that show similar styles (i.e., represented by similar co-occurrence matrices) to a few other subjects.}  We further calculated an average EER of 1.18\% among the $24$ subjects.
+
+To evaluate the performance under Non-Observing insiders, 
+%we set the experiment as each subject is considered as a victim and the remaining $23$ subjects are considered as attackers. 
+we utilize data from 24 subjects, train twenty-four classifiers with the training set and test them with the remaining data. For each classifier, one subject act as the victim (positive samples) and the rest 23 subjects act as attackers (negative  samples). Note that the data from the 24 subjects that are not used for training are used for testing.
+
+
+ Results are based on default parameters (one sample contains no more than $2,000$ frames; a training set contains $30$ samples per subject, the rests are for testing; each stroke segment contains $12$ frames; the vocabulary size equals to $200$). Figure~\ref{fig:random} shows the results where each ROC curve represents one subject. We observe that for almost all the subjects, the performance under Non-Observing attacks are close to ideal, near $100\%$ TPR, 0 FPR. \jingap{The worst cases are mainly caused by some of their samples that show similar styles (i.e., represented by similar co-occurrence matrices) to a few other subjects.}  We further calculated an average EER of 1.18\% among the $24$ subjects.
 
 %The ROC curves are used for evaluation scenarios where an attacker may be an insider. 
 %We also consider the impostor scenarios, i.e., an attacker does not belong to any of the enrolled subjects. \CiT rejects a testing sample as an impostor if the sample is rejected by all the binary SVM classifiers. To evaluate the performance of impostor rejection, we use rejection rate:
@@ -198,9 +203,9 @@ Table~\ref{tab: AllRes} summarizes the results when varying different parameters
 \textit{Histogram vs. Co-occurrence Matrix.} We conduct an
 experiment to justify choosing transition co-occurrence matrix
 of stroke segments as the style features. In this experiment, we
-directly use the histogram of the individual (quantized) stroke segment
+directly use the histogram of the each  stroke segment
 features (i.e., the histogram of the stroke segment indices), the EER is 6.45\%, which is much higher
-than 1.18\% that uses the proposed style features (i.e., co-occurrence matrix). In addition, we combine two features (both histogram and co-occurrence matrix), but EER (i.e., 2.01\%) is not as high as the ones using only co-occurrence matrix. Therefore, we conclude that the stroke segment-transition statistics can better represent the handwriting style.
+than 1.18\%, which uses co-occurrence matrix. In addition, we combine two features (both histogram and co-occurrence matrix), but EER (i.e., 2.01\%) is not as high as the ones using only co-occurrence matrix. Therefore, we conclude that the stroke segment-transition statistics can better represent the handwriting style.
 
 %\end{itemize}
 
@@ -210,22 +215,27 @@ than 1.18\% that uses the proposed style features (i.e., co-occurrence matrix). 
 
 
 
-
-
-
-\jingap{
 \noindent \textbf{Non-Observing Impostors.} 
-\textit{
-For each subject (one of the 24 subjects, $s_i$) that acts as a victim, we assume another subject (one from the rest of 23 subjects, $s_j$) is an impostor without knowing any information of the victim. We label the rest 22 subjects as  $s_{rest}$. For each victim $s_i$, we train 23 classifiers and show average result as one ROC curve in Figure~\ref{fig:randomAliens}.}
-To train classifiers for $s_i$, we use $s_i$'s training data as positive samples, the $s_{rest}$' training data as negative samples, while $s_j$'s data are not included. In other word, the 23 classifiers for $s_i$ have the same positive samples from $s_i$, but negative training samples are partly different as the $s_{rest}$ sets are different since different $s_j$ is chosen as an impostor. 
-To test classifiers of $s_i$, we label all data from the attacker $s_j$ as negative samples, and the testing data from the victim $s_i$ are positive samples. The result of each curve shown in Figure~\ref{fig:randomAliens} is the averaged testing results on the 23 classifiers.
+In this scenario, the non-observing impostor  is not part of the group of legitimate users and does not contain any useful information of the users, thus the impostor's samples are never a part of the training sets \jingap{except for building the vocabulary}. To evaluate the performance of \CiT under non-observing attacks, we train 23 classifiers for each victim. For each subject as a victim, $s_i$, we repeat the experiment 23 times by rotating the impostor role, $s_j$, among 23 subjects other than the victim. 
+%Among 24 subjects, we choose one of the subject as a victim,  and another subject as a non-observing impostor, from the rest 23 subjects.
+We label the rest 22 subjects as $s_{rest}$. 
+%For each subject (one of the 24 subjects, $s_i$) that acts as a victim, we assume another subject (one from the rest of 23 subjects, $s_j$) is an impostor without knowing any information of the victim. 
+% and show average result as one ROC curve in Figure~\ref{fig:randomAliens}.
+%To train the classifiers for $s_i$, 
+we use $s_i$'s training data as positive samples, the $s_{rest}$' training data as negative samples, while $s_j$'s data are not included. 
+In other word, the twenty-three classifiers for $s_i$ have the same positive samples from $s_i$, but negative training samples are partly different as the $s_{rest}$ sets are different since different $s_j$ is chosen as an impostor. 
+To test classifiers of $s_i$, we label all data from the attacker $s_j$ as negative samples, and the testing data from the victim $s_i$ are positive samples. The result of each curve shown in Figure~\ref{fig:randomAliens} is the averaged testing results on the 23 classifiers. The overall EER is \jing{2.45\%} averaged for all 24 subjects.
+
+
+%The impostor and the victim do not know any information about each other. Thus the impostor's samples are never a part of the training sets \jingap{except for building the vocabulary}. The 23 subjects except the impostor one are the legitimate users for training. 
+
 
 %Twenty-four Classifiers are trained with training data from 23 subjects. For each classifier, one subject act as the victim (positive training samples) and the rest 22 ones are acted as attackers (negative training samples). and tested using all data from the remaining subject. 
 
-In this scenario, the attackers' samples are not included in training. Among 24 subjects, we choose one of the subject as a victim and another subject as a non-observing impostor from the rest 23 subjects. The impostor's samples are never a part of the training sets \jingap{except for building the vocabulary}. All training data from the 23 subjects except the impostor one are the legitimate users for training. For each subject as a victim, we repeat the experiment 23 times by rotating the impostor role. Note that we call such an attacker as non-observing impostor because he/she is not part of the group of legitimate users and does not contain any useful information of the users.
+
 %In this scenario, the attackers' samples are not part of the negative training samples. Among 24 subjects, we choose \textit{one} subject as impostor and their samples are never part of training sets. We use the remaining $23$ subjects as the legitimate users for training. Then we simplely let another subject act as impostor and repeat the experiment. By rotating the impostor role, we tested the security performance of the system under Non-Observing impostors, who do not perform any role inside the system and also has no useful information from the system or insiders.
-} 
-Results shown with ROC curves for all subjects are in~\figref{fig:randomAliens}. The overall EER is \jing{2.45\%} averaged for all 24 subjects.
+
+%Results shown with ROC curves for all subjects are in~\figref{fig:randomAliens}. 
 
 \begin{figure}[!b]
 \centering
@@ -255,7 +265,7 @@ Results shown with ROC curves for all subjects are in~\figref{fig:randomAliens}.
 & {\includegraphics[width=.45\columnwidth]{./Graphic/roc/Roc_4victims_0_5_4st.eps}} 
 \end{tabular}
 \vspace{-0mm}
-\caption{{Authetication performance of the victims under observing attacks presents by ROC curves. }}\label{fig:ROC_attack}
+\caption{{Authentication performance of the victims under observing attacks presents by ROC curves. }}\label{fig:ROC_attack}
 %\end{minipage}
 \vspace{-0mm}
 \end{figure}
@@ -265,14 +275,15 @@ Results shown with ROC curves for all subjects are in~\figref{fig:randomAliens}.
 \subsubsection{Results for Observing Attacks}
 
 %\textbf{Observing Attacks by Shoulder Surfing} 
-\jing{\textit{We use classifiers of 4 victims which are trained in Non-Observing Insiders' part and test the 4 classifiers with 7 attackers' data, whose data never be part of the training.}}
-We use observing attacks to emulate the extreme case where an attacker happens to observe a user' writing process and the system ask the attacker to respond to the same challenge as the victim have met, although it is unlikely for the system to select the same challenge in practice.  In this experiment, out of the 24 subjects, we \jing{randomly} select 4 as victims, and invite 7 subjects act as attackers. Against each victim, each attacker writes a selected paragraph of the article three times. Before each new attempt, the attackers spend time to 1) observe the victims' writing processes by shoulder surfing, 
+%\jing{\textit{We use classifiers of 4 victims which are trained in Non-Observing Insiders' part and test the 4 classifiers with 7 attackers' data, whose data never be part of the training.}}
+
+We use observing attacks to emulate the extreme case where an attacker happens to observe a user' writing process and the system ask the attacker to respond to the same challenge as the victim has done in the past, although it is unlikely for the system to select the same challenge in practice.  In this experiment, out of the 24 subjects, we \jing{randomly} select 4 as victims, and invite 7 subjects act as attackers. Against each victim, each attacker writes a selected paragraph of the article three times. Before each new attempt, the attackers spend time to 1) observe the victims' writing processes by shoulder surfing, 
 %2) study the text content written by the victims, 
 and 2) view the finger tracking results of the victims' handwriting on the computer screen. This way, we collected $4\times 7 \times 3=84$ writings as the observing attack data. 
 
-In the observing attacks, we use the same binary classifiers of the 4 victims trained in the Non-Observing attack scenarios. This way, none of the observing attack data are included for training. We then use the victims' untrained normal data and the collected observing attack data for evaluation. Figure~\ref{fig:ROC_attack} shows the verification performance of these 4 victim subjects against the observing attacks. Our results show that the observing attackers cannot achieve a better verification result than a random person who has no information about the victim. \jingfeb{In particular, the averaged EER of Non-Observing insider attacks is $1.16\%$ for the 4 victims, which is similar to the average on of 24 subjects under insider attacks. The averaged EER of observing attacks is $3.11\%$ for these 4 victims.} 
+In the observing attacks, we use the same binary classifiers of the 4 victims trained in the Non-Observing attack scenarios. This way, none of the observing attack data are included for training. We then use the victims' untrained normal data and the collected observing attack data for evaluation. Figure~\ref{fig:ROC_attack} shows the verification performance of these 4 victim subjects against the observing attacks. Our results show that the observing attackers cannot achieve a better verification result than a non-observing attacker who has no information about the victim. \jingfeb{In particular, the averaged EER of Non-Observing insider attacks is $1.16\%$ for the 4 victims, which is similar to the average on of 24 subjects under insider attacks. The averaged EER of observing attacks is $3.11\%$ for these 4 victims.} 
 \jing{
-From the results, we observe that the learning the writing content does not necessary always improve the impersonate attacks and may have limited help in impersonating users in \CiT. 
+Thus, the learning the writing content does not necessary always improve the impersonate attacks greatly and may have limited help in impersonating users in \CiT. 
 }
 %Thus, observing the victim and learning the writing content have \jing{limited} help in impersonating users in \CiT. 
 

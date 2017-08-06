@@ -52,7 +52,7 @@ As a user raises his/her hands and uses one of the fingers to write,  a Leap Mot
 \item fingertip position,\quad -- $(p_x(t), p_y(t),p_z(t))$, 
 \item fingertip velocity,\quad -- $(v_x(t), v_y(t),v_z(t))$, 
 \item fingertip direction,\quad -- $(D_x(t), D_y(t),D_z(t))$, 
-\item finger visible length and width.\quad -- $L_f(t)$ and $W_f(t)$. 
+\item finger visible length and width,\quad -- $L_f(t)$ and $W_f(t)$. 
 \end{enumerate}
 %\end{inlinenum}
 In addition, Leap Motion provides an ID number and a timestamp for each frame. The ID number of each frame for objects (e.g., fingers) is given as a positive number if at least one object is detected or becomes a negative number if no recognizable objects are detected. Thus, we utilize the ID numbers to check the validity of a frame and utilize timestamps to calculate the speed of handwriting. 
@@ -228,7 +228,7 @@ Given the sample length $L_s$ that is no larger than 2000 frames, $30$ words for
 \subsection{Outlier Elimination}
 % define different noise types
 Noises caused by environment variation may affect the Leap Motion raw trajectories. In general, such noises lead to abrupt changes of the fingertip positions between adjacent frames, as shown in Figure~\ref{fig:noises}. 
-Therefore, they are actually outliers. In general, we observe two types of outliers: (1) no fingertip is detected ($7.32\%$ amount of data) , and (2) a fingertip is detected but at an unlikely position (less than $1\%$ amount of data). For no-detection cases, we examine the number of consecutive frames that do not contain detected fingertips. If the number is small, we perform spatial interpolation. If the number of noisy frames is large, we discard the noisy frames and divide the raw trajectory into two. 
+Therefore, they are actually outliers. In general, we observe two types of outliers: (1) no fingertip is detected ($7.32\%$ amount of data), and (2) a fingertip is detected but at an unlikely position (less than $1\%$ amount of data). For no-detection cases, we examine the number of consecutive frames that do not contain detected fingertips. If the number is small, we perform spatial interpolation. If the number of noisy frames is large, we discard the noisy frames and divide the raw trajectory into two. 
 Then we can perform the remaining data processing and feature extraction steps on each trajectory independently. 
 For unlikely-position cases, we apply a temporal median filter to remove the outliers~\cite{SaltNoise}. 
 At each frame, we examine a temporal window centered at this frame, search for the median of all values in this window,  and set the median as the new value of this frame. 
