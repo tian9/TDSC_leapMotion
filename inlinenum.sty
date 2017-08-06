@@ -1,0 +1,62 @@
+% LaTeX style file to format inline enumeration (with references)
+% Copyright (C) 2004  Frederik Fouvry <fouvry@coli.uni-sb.de>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+%
+
+% Environment to work with referencable inline numbers, e.g.
+% 
+%  The task consists of three parts:
+%  \begin{inlinenum}
+%  \item design,
+%  \item\label{create} create,
+%  \item evaluate.
+%  \end{inlinenum}
+%  \ref{create} may well be the easiest.
+%  
+%  The task consists of three parts: (a) design, (b) create, (c) evaluate.
+%  (b) may well be the easiest.
+% 
+
+\def\filedate{2004/01/14}
+\def\fileversion{0.1}
+
+\NeedsTeXFormat{LaTeX2e}[2000/06/01]
+\ProvidesPackage{inlinenum}[\filedate\space\fileversion]
+%% \typeout{Package: `inlinenum' 2004 <0.1> (fouvry)}
+
+\newcommand*{\inlinenum@format}{}
+\DeclareOption{arabic}{\renewcommand*{\inlinenum@format}{\arabic}}
+\DeclareOption{roman}{\renewcommand*{\inlinenum@format}{\roman}}
+\DeclareOption{Roman}{\renewcommand*{\inlinenum@format}{\Roman}}
+\DeclareOption{alph}{\renewcommand*{\inlinenum@format}{\alph}}
+\DeclareOption{Alph}{\renewcommand*{\inlinenum@format}{\Alph}}
+\DeclareOption{fnsymbol}{\renewcommand*{\inlinenum@format}{\fnsymbol}}
+
+%% \ExecuteOptions{alph}
+\ProcessOptions
+
+\newcounter{inlinenumctr}
+
+\newenvironment{inlinenum}[1][\alph]{%\inlinenum@format
+ \renewcommand{\theinlinenumctr}{(#1{inlinenumctr})}%
+ \setcounter{inlinenumctr}{0}%
+ \renewcommand*{\item}{%
+  \refstepcounter{inlinenumctr}%
+  \theinlinenumctr~}%
+ \ignorespaces
+}{\ignorespacesafterend}
+
+\endinput

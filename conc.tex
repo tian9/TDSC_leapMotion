@@ -1,0 +1,53 @@
+\section{Discussion and Conclusion}
+\label{sec:conc}
+\vspace{-1mm}
+
+
+\jing{
+\subsection{Discussion} 
+}
+\jing{
+\indent \textit{Content Matching.} 
+In this paper we focused on how to apply the in-air handwriting style for authentication. For security concerns, we introduced challenge-response procedure. We believe that the matching between the challenge and the response (i.e., handwriting content matching) can utilize approaches designed for handwriting recognition. Much work has been proposed to recognize content from off-line writings, on-line writings (2D), and in-air writings (3D). These content matching approaches can be added to fulfill the proposed method. \jingap{
+%The future work of the content matching will also increase the accuracy of the system, as our evaluation results does not reject the attack samples that have the same hand writing style distribution as the legitimate one but formed from different content, which should be rejected as the earlier stage -- content matching. 
+Essentially, the implemented \CiT in the paper authenticates based on `how a user writes' instead of both `how a user writes' and `what a user writes'. As a direction for future work, it is important to investigate content matching and its impact on the accuracy of the system. We suspect that content matching could improve the security, since our evaluation results do not reject the attack samples that have the same hand writing style distribution as the legitimate one but extracted from different content, such cases should be rejected at the earlier stage -- content matching.}
+In addition, as a direction of future work, it is worth performing usability studies to understand the trade-off between security benefits and extra effort imposed by the introducing of the challenge-response mechanism. 
+%In this paper we focused on how to apply the in-air handwriting style for authentication. For security concerns, we introduced challenge-response scheme. The challenge and response matching (i.e., handwriting content matching) is a similar work to handwriting recognition work which had be done with off-line writings, on-line writings (2D), and in-air writings (3D). We will integrate the content matching in the future work, and include usability studies to show the trade-off between security benefits and extra effort due to the introducing of CR mechanism. 
+%the extra content matching introduces extra effort for verifying the content. This step is necessary if we need take advantages of CR mechanism.  
+
+
+}
+
+\jing{
+\noindent \textit{Handwriting Segmentation}. 
+We used a fix number of continuous sampling frames to represent the primitives of handwriting. However, based on the trajectories' inner variations, one can extract segments according to a few features (e.g., curvature, direction, speed) so that each segment will contain unique style information of a user, while the length of each segment is not necessarily the same. Thus, it is worth exploring new segmentation methods for enhancing writing style modeling as a task of future work.
+%We used a fix number of continuous sampling frames to represent the primitives of handwritings. However, based on the trajectories' inner variations during writing, segments with certain changes of some features (e.g., curvature, direction, speed) should contain unique style information of a user, while the length is not necessarily the same. Thus,in future work we will explore possible new segmentation methods for better writing style modeling.
+}
+
+\jing{
+\noindent \textit{Vocabulary Generation}. 
+%We extracted a vocabulary based on part of training data prior to classifier training. Ideally, pre-trained vocabulary with a separate database can avoid new vocabulary training with a new user enrollment. For application of large group of users or frequent new user enrollment, the pre-train on vocabulary with separate database can improve the computation performance at training stage. However, our in-air writing data, which was collected by recruiting subjects in campus, is not large enough to be separated into two databases for generating representative vocabulary for various writing styles, while maintaining a statistically significant results on the authentication performance. The limitation can be eliminated by extra data collection.
+We extracted a vocabulary based on the training data prior to classifier training. Ideally, pre-trained vocabulary with a separate database can avoid new vocabulary training whenever a new user enrolls. For scenarios of a large group of users, the pre-training on the vocabulary in a separate database can improve the computation performance at the training stage. However, our experiments involved 24 subjects on campus, and is not large enough to generate a representative vocabulary for various writing styles while maintaining a statistically significant results of authentication evaluation. We note that this limitation can be eliminated by extra data collection.
+}
+
+
+\subsection{Conclusion}
+
+We design a motion-based challenge response authentication scheme that is based on a user's handwriting style in a 3D space, and we leverage a hand motion sensor --- Leap Motion controllers --- to capture finger movements as a user writes in the air. \jingap{Our scheme authenticates users based on `what they write' and `how they write'. We focus on `how they write' in this paper, and `what they write' will be discussed in the future work. } Our results show that the co-occurrence matrix that built on sets of stroke segments (i.e., a small, fixed-length trajectory of fingertip movements) can model a user's handwriting style. We envision that our authentication scheme can be used in applications such as building security guard authentication. 
+
+We built a system called the \CiT and evaluated it on 24 subjects for 7 months.  
+Our results show that \CiT can reliably authenticate one of the 24 subjects with an average equal error rate of 1.18\% and reject impostors with an error rate of 2.45\%. In addition, \CiT can effectively reject skilled attackers that observed victims' writing process multiple times. %, and reject all samples from an emulated motion tracking robot arm. %The identification results show that \CiT can identify a user (e.g., an accuracy of $97.4\%$ for 24 subjects). 
+%The results encourage us to pursuit a study at a larger scale and to understand the entropy of 3D handwriting styles as a behavior biometric. %\red{Jing: check the number}
+
+
+
+%\vspace{-6mm}
+%\blue{\section*{Acknowledgement}
+%\vspace{-1mm}
+%The authors would like to thank all volunteers for their help collecting data and Carter Bays for improving the paper. This work has been funded in part by NSF CNS-0845671, NSF GEO-1124657, AFOSR FA9550-11-1-0327, NSF-1017199, and ARL W911NF-10-2-0060.}
+
+% and is robust to various attackers, including the one that observes victims multiple times and is aware of the spell of the passwords. % illustrating its resilience against shoulder surfing. %and six of them are attacked by other four types attackers with observation or guessing information. %We perform two methods, Hidden Markov Model and Dynamic Time Wrapping, to authenticate the legal user and reject the illegal ones. The results shows that both of the methods can achieve relatively low false rejection rate and false accept rate, which are suitable for practical system deployment in the future.
+
+
+
+%   while reject various attacks with high precision. We compared KinWrite, which utilizes the DTW algorithm, with one popular statistical learning algorithm (Hidden Markov Model) and KinWrite outperforms HMM.

@@ -1,0 +1,142 @@
+\section{Related Work}
+\label{sec:related}
+
+
+%challenge response, 
+%biometric ones--voice. based on,
+%first motion biometric
+%authentication--- biometrics, one of the 
+%handwriting---as writer identification.
+%biometric based cr authentication, using depth sensers.
+
+Challenge-response protocols are widely used for user verification over insecure channels. Randomly generated information as the challenge and encrypted or hashed response make the protocols prevent replay attacks~\cite{Securityforcomputernetworks} and dictionary attacks~\cite{Bellovin92encryptedkey}. %Besides using secret keys to create response,  
+O$'$Gorman \textit{et al.}, without experimental analysis, briefly suggested to create challenge-response protocols with biometrics~\cite{Gorman2003ComparingPasswords}, including speaker verification, keyboard dynamics.  %, and handwriting verification.  %Fuji \textit{et al.} also proposed to use voice to construct  a challenge response method without experiments~\cite{FujiiT13voice}. 
+Johnson \textit{et al.}~\cite{johnson2013SPIE} proposed to use voice to construct a challenge response method that can verify users without breaching privacy. Their protocol utilizes encrypted feature vectors from real users and chaff ones from random people to create a hidden challenge that can only be recognized by the real user. Our work also utilize biometrics, but our system utilizes motion instead of voice and can work in a noisy environment. %The basic idea is to let a server store an encrypted real feature vector derived from a user's voice and a chaff feature vector from a random people. Then the server encodes the challenge by mixing the real feature vectors and chaff ones. Because the users can correctly encrypt and identify the real feature vectors, they can recover the challenge and send it back. Our work also utilize biometrics
+
+%However, they may not secure under dictionary attacks. Bellovin and Merritt improved the protocol by sharing common password to against dictionary attacks~\cite{Bellovin92encryptedkey}. O$'$Gorman suggested possible challenge-response protocols that combined with biometrics~\cite{Gorman2003ComparingPasswords}. Physical biometrics that contains stable personal information can response with random challenge and the collected biometric data, encrypt or not. However, the physical biometrics are limited and contains privacy personal information. Behavior biometrics are personal information hidden in human behavior.% (e.g., speaking, handwriting and typing). 
+%For instance, the challenges of using voice to authenticate a user are random contents that are vocable. The responses are the corresponding voice data collected from the user. 
+%Later, Fuji and Johnson utilize the voice verification to authenticate a user as part of a challenge-response method~\cite{FujiiT13voice,johnson2013SPIE}. However, the voice applications require quiet environment such that is not suitable for applications in public area. In addition, it is not applicable for continuous authentication if there are more than one person speaking.  To avoid these limitations, We applied a motion based biometric to challenge-response protocol to verify a user.
+%, handwriting captured by depth sensors, 
+ 
+
+%Biometric authentication is based on the unique physical characteristics of the human body. Biometric is limited and have privacy problem, 
+
+%In biometrics, challenge response is the term used to describe the method by which the identification of a person is detected based on voluntary or involuntary responses. Challenge response is a type of biometric system security.
+
+
+
+
+
+%\subsection{User Re-Authentication and Authentication}
+
+
+%A typical re-authentication scheme  verifies a user continuously/periodically. 
+%In 1985, using user behaviors for passive re-authentication was first proposed by Denning \emph{et al.}, whereby a statistical anomaly detector observes behavior on a monitored computer
+%system and adaptively learns what is normal for subjects. Along the similar line, Szymanski~\emph{et al.} \cite{CoullBSB03} detect abnormal events by checking the inputs from command line using a bioinformatics approach. 
+
+
+Recently, gestures embedded in the usage patterns of traditional I/O devices (i.e., keyboard and mouse) have been proposed for authentication. For instance, keystroke dynamics~\cite{Revett:springerlink:10,Monrose:CCS99,Monrose97keystroke,Shavlik01keystroke} and patterns of mouse movements or clicks~\cite{Ahmed:TPDS07,Jorgensen11mouse} are used for authentication.
+The gestures that can be measured with new input devices (e.g., touch screens, cameras, or sensors) have attract much attention, too. For instance, wearable accelerometer sensors~\cite{Gafurov2007} and smart phones~\cite{Derawi:2013} can capture full body gestures (e.g., gaits or strides) for authentication purpose. %. "Secret shakes" is used as a complementary authentication for traditional RFID card, shown in Google pattern~\cite{kohno2014radio}. 
+With the advances in multi-touch screens for smartphones and tablets, %how fingers operate touch screens has been used for authentication / 
+gestures of multi-touch (e.g., gestures using multiple fingers at the same time) are studied for authentication. Sae-Bae~\etal  { extracted} behavior-based biometrics from five-finger gestures and obtained a 90\% accuracy~\cite{SaeBaeCHI2012}, and Sherman~\etal { studied} the security and memorability on these free form gestures, which are not limited to single or multiple touches~\cite{Sherman:2014}. 
+
+%Instead of pure finger gestures, several work proposed to combine other information with gestures. Zhao~\etal~\cite{USENIX2013Win8} analyzed finger gestures for authentication as users draw gestures on the touch screens with pictures displayed as background. % gesture authentication on Mirosoft Windows 8 touch screen and the designed attacks cracked a considerable portion of collected picture passwords under different settings~\cite{USENIX2013Win8}. 
+Uellenbeck~\etal { studied} the security performance of android system with an unlock pattern called Pass-Go scheme of $3\times 3$ grid size~\cite{Uell:CCS13}. De LucA~\etal~ combined a gesture and how the gesture was entered, and then evaluated the authentication performance~\cite{DeLuca:2012}.  
+%\$1, \$N, and \$P stroke recognizers developed by Wobbrock~\etal shows that the 2D gestures on the touch screen are possible to be used as a secret to authenticate users. Re-authentication for smart phones with gestures captured during daily usage are studied in~\cite{LiZX:NDSS13}. 
+Our work is similar to all the aforementioned work because we all try to utilize gestures that are embedded in the usage patterns of input devices. However, none of the prior work studied the gestures associated with the emerging depth sensors, nor can they serve as a basis to construct challenge response authentication.
+
+
+%  gestures~\cite{Kubota:ISPACS06,Liu:2009MobiHCI,Shahzad:mobiCom13} and finger movements~\cite{TianQXW13:NDSS13}, % were also analyzed as authentication methods. 
+%and touching gestures on the smart phone~\cite{LiZX:NDSS13}.
+
+%From the other side of the fence, research has shown some of the behavior biometrics can be imitated. For instance, Serwadda~\etal~\cite{Serwadda:CCS13} show that a simple ``Lego'' robot can generate forgeries that achieve alarmingly high 
+%penetration rates against touch-based authentication systems. Along the same line, work has shown that typing patterns of individuals can be imitated~\cite{Tey:NDSS13} as well.  Motivated by these imitation attacks, we aim at finding a biometrics that relies on motion-rich behaviors that can be more difficult to imitate. 
+
+Authentication based on depth sensors has been studied on Microsoft Kinect~\cite{GaitKinectMS,Hayashi2014:WMU} as it is the first low cost depth sensor and provided with several types of data. Leap Motion is another low cost depth sensor but focus on high accuracy and small area depth sensing. Few research has been done on Leap Motion, for instance, the user verification of two gestures that performed under three different device positions~\cite{Aslan14:LeapMidAirGesture} and the user identification based on hand shape information~\cite{Bernardos2015:LeapHandIdentify}. 
+
+
+Using motion sensors to capture in-air handwriting was first proposed as a way to enhance text-base passwords~\cite{TianQXW13:NDSS13}. Then, Nigam~\etal proposed a recognition system based on fusion data of signatures from a Leap Motion sensor and face images from a camera~\cite{Nigam15:LeapSigVeri}. Their methods combine the writing content with the behavioral biometrics, and thus requires to write the same content for authentication.  
+
+Our work is different because we try to harvest the writing style in the 3D-handwriting and do not depend on writing content. Thus, our work represents a harder problem and requires to utilize a more sophisticated features. 
+
+%we use the same gesture as in~\cite{TianQXW13:NDSS13} but authenticate a user by varying handwriting content in each session. Specifically, we perform re-authentication by passively detect any abnormal handwriting style to reject an attacker and match a specific handwriting style to identity a given user. 
+  
+%  In-air gestures utilize depth cameras such as Kinect to record the gesture movements, e.g., finger movements in~\cite{TianQXW13:NDSS13}, hand movements such as waves~\cite{Hayashi:2014:WMU} and handshakes~\cite{Maurer:2012}, and body movements such as gaits~\cite{GaitKinectMS}.
+
+%Another related authentication scheme is online signatures, where people sign with a digital pen. Different from the traditional offline signatures, online signatures are represented by a temporal series according to the motion trajectories. Researcher has studied 2D online signatures with dynamic and spatial information of the handwriting~\cite{onlinesigver02}. 
+
+%Online signatures can be used for one-time authentication, but are inapplicable to re-authentication.
+ 
+%Online signatures  can be either in a 2D or 3D form, and both forms have been studied by researchers. For example,
+% Jain~\etal studied 2D online signatures with dynamic and spatial information of the handwriting~\cite{onlinesigver02}, while 3D finger movements were discussed with rich biometrics for all three dimensions are extracted used for 3D online signature authentication ~\cite{TianQXW13:NDSS13}. 
+
+
+%\xxx[JT]{delete the following two paragraphs}
+%Passwords are commonly used as an authentication method to control access to systems, but they are not a strong authentication method because users tend to choose poor passwords that  enable an adversary to crack passwords easily% by using a brute-force search or shoulder surfing
+%~\cite{Ari:CCS13,Forget:CHI10}. Castelluccia~\etal~\cite{castelluccia2013privacy} utilized a password cracking system for traditional password and found that up to 69\% passwords can be cracked at 10 billion guesses. Mazurek~\etal~\cite{cmupasswords:ccs13} studied the password guessability of $25,000$ users of a university, and discovered significant correlations between password strength and a number of demographic, behavioral factors. Such information can be utilized by attackers to crack passwords. 
+%
+%
+%To enhance the security of passwords, `honeywords'~\cite{gencexamination} that refer to fake passwords added into password files,  were proposed to fool attackers. Several different types of behavior-biometrics are proposed to enhance the password-based authentication. For instance, Revett~\cite{Revett:springerlink:10,Monrose:CCS99} proposed to add keystroke dynamics features obtained when typing passwords to harden password-based authentication. Zheng~\etal~\cite{Zheng:CCS11} proposed to use patterns of mouse movements and exploited the angle-based metrics of the movements for authentication.   Gestures~\cite{Kubota:ISPACS06,Liu:2009MobiHCI,Shahzad:mobiCom13} and finger movements~\cite{TianQXW13:NDSS13} were also analyzed as authentication methods. From the other side of the fence, research has shown some of the biometrics can be imitated. For instance, Serwadda~\etal~\cite{Serwadda:CCS13} show that a simple ``Lego'' robot can generate forgeries that achieve alarmingly high
+%penetration rates against touch-based authentication systems. Along the same line, work has shown that typing patterns of individuals can be imitated~\cite{Tey:NDSS13} as well.  Motivated by these imitation attacks, we aim at finding a biometrics that relies on varying behaviors and is difficult to imitate. 
+
+
+
+%\subsection{Writer Identification}
+
+Research on writing style has been used for writer identification that aims at identifying the person who wrote a document or at determining whether multiple documents are written by the same person.
+% Much work has been done in the pattern recognition communication and focuses on analyzing handwritten images, e.g., the handwriting was recorded in on a flat surface.
+\jing{
+Handwriting samples could be obtained offline, i.e., scanned images of handwriting~\cite{Bulacu:2003:EdgeBasedDirectional}, online by a digitizing tablet~\cite{onlinesigver02}, or in the 3D space~\cite{TianQXW13:NDSS13}.
+}
+\jing{
+Traditionally, writer identification are mostly focused on offline handwritings, i.e., scaned images. Features study on handwriting styles has been focused on textural features which are based on directionally and curvature of patterns in handwritten image, Or allographs which is based a 'code book' extracted from breaking up handwritten patterns formed by local descriptors, i.e., shapes~\cite{WriterIdentificationVerification}. Histogram of primitives referred from the code book as characteristic for a writer as a statistical representative. Based on these, varies handwriting style features are derived. Newell~\etal used oriented Basic Image Features (oBIF) as their descriptors and enhanced textural based approch by a deviation encoding to provide a more informative encoding method~\cite{Newell:2014:OrientedBasicImageFeatures}. To better utilize the edge information, Bulacu~\etal proposed edge-based directional probability distributions as features~\cite{Bulacu:2003:EdgeBasedDirectional}. Schomaker~\etal. used the COnnected-COmponent COntours (CO3) as the basic elements to capture features of the pen-tip trajectory and then extened to fragmented CO3s to better discribe the ink-blob shapes~\cite{}. He~\etal extracted a
+local scale- and rotation-invariant descriptor called Polar Stroke
+Descriptor from the strokes in handwritten documents~\cite{He:ICDAR15:PolarStroke}. Jayanthi~\etal did texture analysis based on feature extracted from gray-level co-occurrence matrix of scanned image, which provided measure of the joint probability occurrence of the specified pixel pairs. 
+}
+%Gordo~\etc studied on handwritten musical scores with Bag of Visual Words framework. each handwriting style is modeled by a number of histogram-valued data computed for all the features in the feature set
+
+
+\jing{
+On-line handwritings contains temporal information such as the velocity of the pen movements, which is useful for writer identification.
+Liwicki~\etal presented an on-line writer identification system for Smart Meeting Rooms, used features at point level and stroke level extracted from text line~\cite{Liwicki2006:onlineSmartMeeting}.
+Namboodiri~\etal used low level shape-based features and Li~\etal used stroke level at probility distribution~\cite{Li2007:StrokeProbabilityDistribution}
+}
+
+
+
+	
+
+
+
+	
+  Prior work can be divided into text-dependent and text-independent. The text-dependent identification mostly deals with signature verification. 
+
+%Signatures could be obtained online by a digitizing tablet~\cite{onlinesigver02} or offline, i.e., scanned images of handwriting~\cite{kalera2004offline,JapanPassVeri,arabic_handwriting}. Online-signature in the 3D space~\cite{TianQXW13:NDSS13} was also studied.
+  
+  
+  
+  text-independent identification 
+  
+  
+  Our work focuses on text-independent identification. 
+  
+
+  
+  
+Instead of using the histogram~\cite{Wen201245,writer-identification-musical-scores} or probability distribution function~\cite{Bangla2011,bulacu2007text,schomaker2004automatic} , we utilize co-occurrence matrix that quantifies the transition information between connecting components, and our results show that the co-occurrence matrix can achieve a better performance than histogram-based methods in our systems. 
+
+
+%Text-independent writer identification has been studied and could be used to identify the authorship for forensic purposes~\cite{AuthorIdentiNarayanan:2012,sparse-writer-forensic,bulacu2007text}. In addition, text-independent writer identification has been studied with respect to different languages, e.g.,  English~\cite{bulacu2007text,schomaker2004automatic,Tan98writeridentification},  Chinese~\cite{he2008writer,Wen201245}, Bangla~\cite{Bangla2011}, old handwritten music scores~\cite{writer-identification-musical-scores}. Most prior work used publicly available datasets which contains offline scanned documents, e.g., IAM dataset~\cite{sparse-writer-forensic}. In comparison, our work collects a new type of handwriting --- overlapped 3D handwriting--- that has its unique characteristics, and deserves a thorough study.
+
+%To identify writers based on traditional scanned document images, prior work has proposed to utilize features such as connected-component contours~\cite{Bangla2011,schomaker2004automatic}, texture~\cite{bulacu2007text,Tan98writeridentification}, code books~~\cite{Ghiasi2013379, Wen201245}. After extracting features, most work examines the histograms~\cite{Ghiasi2013379, Wen201245,writer-identification-musical-scores} or probability distribution function~\cite{Bangla2011,bulacu2007text,schomaker2004automatic} for writer identification. 
+
+%Some previous work based on data from a Leap Motion devices has been promoted.
+%Leap signature recognition combined with face verification algorithm has an accuracy over 91\% evaluated with data from 60 subjects. 
+
+%Gestural control of instruments on this  platform is promising if we could overcome some challenges. 
+
+%hand-shape based identification identification system is evaluated by some classification methods implemented by Weka, with 96\% highest correct classified instance rate. 
+%The sensor fusion is applied to an existing augmented reality system targeting the treatment of phantom limb pain (PLP) in upper limb amputees.
+%used for free-hand TV control
+%we present a study with 13 participants, which shows authentication accuracy rates for two gestures performed in different situation and an overview of the user experience of the mid-air gestures based authentication method. A participant has the 3D controller attached to his right wrist and is performing mid-air gestures with his left hand to interact with information presented at the iPad.
+%}
