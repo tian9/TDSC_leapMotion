@@ -11,7 +11,6 @@ reduce fatigue. The larger the angle between the table and
 the subjects' forearms, the less fatigue they experienced. In
 addition, we adjusted the position of the Leap Motion to make
 the users' hand visible.
-
 Specifically, we place the Leap Motion sensor facing up at the right side of the laptop computer, or between the computer monitor and the keyboard of a desktop computer as shown in~\figref{fig:leap}. 
 
 We first collect normal data for 24 subjects independently, i.e., each subject writes the article without observing any other subjects.  \jingap{We use the first few paragraphs for enrollment and the rest for testing without cross validation. We get 3256 samples in total, and include 10 words in a sample on average. Among them, 720 samples are for training, and others are used for testing. }
@@ -129,17 +128,56 @@ where $i=1,2,\cdots, m$ indicates the $i$-th round of experiments. We plot the s
 %{\includegraphics[width=.8\columnwidth]{./Graphic/roc/ROC_24victim_random.eps}}
 %(a) &(b)
 \vspace{-3mm}
-\caption{\jingap{Performance of all $24$ subjects under Non-Observing attacks from insiders (samples from the rest of 23 subjects) presents by ROC curves. Each colored curve corresponds to the ROC of one subject.}\vspace{-1mm}}\label{fig:random}
-\vspace{-1mm}
+\caption{Performance of all $24$ subjects under Non-Observing attacks from insiders (samples from the rest of 23 subjects) presents by ROC curves. Each colored curve corresponds to the ROC of one subject.}
+%\vspace{-1mm}
+\label{fig:random}
+%\vspace{-1mm}
+\end{figure}
+
+
+\begin{figure}[!b]
+\centering
+\vspace{-6mm}
+%{\includegraphics[width=.8\columnwidth]{./Graphic/roc/leaveOneOut_imposter_roc.eps}}
+{\includegraphics[width=.8\columnwidth]{./Graphic/roc/fig_12_24randomImpostor.eps}} \\
+%(a) &(b)
+\vspace{-3mm}
+\caption{\jingap{Performance of all 24 subjects rejecting impostors presents by ROC curves. Each colored curve corresponds to the ROC of one subject.}}
+%\vspace{-1mm}}
+\label{fig:randomAliens}
+%\vspace{-1mm}
 \end{figure}
 
  
 
 
-\textbf{Non-observing Insiders.} 
+\textbf{Non-observing insiders.} 
 To evaluate the performance under non-observing insiders, 
 %we set the experiment as each subject is considered as a victim and the remaining $23$ subjects are considered as attackers. 
-we utilize data from 24 subjects, train twenty-four classifiers with the training set and test them with the remaining data. For each classifier, one subject act as the victim (positive samples) and the rest 23 subjects act as attackers (negative  samples). Note that the data from the 24 subjects that are not used for training are used for testing.
+we utilize data from 24 subjects, train twenty-four classifiers with the training set and test them with the remaining data. For each classifier, one subject act as the victim (positive samples) and the rest 23 subjects act as attackers (negative  samples). Note that the data from the 24 subjects that are used for training are not used for testing.
+
+
+
+
+\begin{figure*}[!b]
+\centering
+\vspace{-3mm}
+\begin{tabular}{cc}
+\subfigure
+{\includegraphics[width=.65\columnwidth]{./Graphic/roc/Roc_4victims_0_5_1st.eps}\vspace{-2mm}}
+\subfigure
+& {\includegraphics[width=.65\columnwidth]{./Graphic/roc/Roc_4victims_0_5_2st.eps}\vspace{-2mm}} \\ 
+
+\subfigure
+{\includegraphics[width=.65\columnwidth]{./Graphic/roc/Roc_4victims_0_5_3st.eps}} 
+\subfigure
+& {\includegraphics[width=.65\columnwidth]{./Graphic/roc/Roc_4victims_0_5_4st.eps}} 
+\end{tabular}
+\vspace{-0mm}
+\caption{{Authentication performance of the victims under observing attacks presents by ROC curves. }}\label{fig:ROC_attack}
+%\end{minipage}
+\vspace{-0mm}
+\end{figure*}
 
 
  Results are based on default parameters (one sample contains no more than $2,000$ frames; a training set contains $30$ samples per subject, the rests are for testing; each stroke segment contains $12$ frames; the vocabulary size equals to $200$). Figure~\ref{fig:random} shows the results where each ROC curve represents one subject. We observe that for almost all the subjects, the performance under Non-Observing attacks are close to ideal, near $100\%$ TPR, 0 FPR. \jingap{The worst cases are mainly caused by some of their samples that show similar styles (i.e., represented by similar co-occurrence matrices) to a few other subjects.}  We further calculated an average EER of 1.18\% among the $24$ subjects.
@@ -236,38 +274,6 @@ To test classifiers of $s_i$, we label all data from the attacker $s_j$ as negat
 
 %Results shown with ROC curves for all subjects are in~\figref{fig:randomAliens}. 
 
-\begin{figure}[!b]
-\centering
-\vspace{-6mm}
-%{\includegraphics[width=.8\columnwidth]{./Graphic/roc/leaveOneOut_imposter_roc.eps}}
-{\includegraphics[width=.8\columnwidth]{./Graphic/roc/fig_12_24randomImpostor.eps}} \\
-%(a) &(b)
-\vspace{-3mm}
-\caption{{\jingap{Performance of all 24 subjects rejecting impostors presents by ROC curves. Each colored curve corresponds to the ROC of one subject.}}\vspace{-1mm}}\label{fig:randomAliens}
-\vspace{-1mm}
-\end{figure}
-
-
-
-\begin{figure}[!b]
-\centering
-\vspace{-5mm}
-\begin{tabular}{cc}
-\subfigure
-{\includegraphics[width=.45\columnwidth]{./Graphic/roc/Roc_4victims_0_5_1st.eps}\vspace{-2mm}}
-\subfigure
-& {\includegraphics[width=.45\columnwidth]{./Graphic/roc/Roc_4victims_0_5_2st.eps}\vspace{-2mm}} \\ 
-
-\subfigure
-{\includegraphics[width=.45\columnwidth]{./Graphic/roc/Roc_4victims_0_5_3st.eps}} 
-\subfigure
-& {\includegraphics[width=.45\columnwidth]{./Graphic/roc/Roc_4victims_0_5_4st.eps}} 
-\end{tabular}
-\vspace{-0mm}
-\caption{{Authentication performance of the victims under observing attacks presents by ROC curves. }}\label{fig:ROC_attack}
-%\end{minipage}
-\vspace{-0mm}
-\end{figure}
 
 %
 

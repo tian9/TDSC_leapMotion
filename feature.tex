@@ -1,20 +1,12 @@
 
 
 
-\begin{figure*}[!b]
-\centering
-%\vspace{-9mm}
-\includegraphics[width = 1.7\columnwidth]{./Graphic/SystemFlow/FeatureFlow_2017_Style_3.pdf}
-\vspace{-22mm}
-\caption{\jingap{An illustration of constructing a style-level feature, i.e., a co-occurrence matrix. The rectangular with dash lines represent various levels of features and an ellipse with solid lines represent `vocabulary'. }} \vspace{-0mm}
-\label{fig:featureFlow}
-\end{figure*}
-
-
 
 
 \section{Feature Extraction and Classification}
 \label{sec:feature}
+
+
 
 %
 %\begin{table}[!b]
@@ -44,6 +36,28 @@
 
 In this section, we elaborate how to extract features at the frame-, stroke-segment-, and style-levels, respectively (shown in Figure~\ref{fig:featureFlow}). Given a sample, we extract frame-level features (denoted by $f_f^i$ for the $i$-th frame) and then combine the features of $L_{ss}$ consecutive frames to generate a stroke segment-level feature (denoted by $f_{ss}^i$ for the $i$-th stroke segment). After finding the index of the primitive that is closest to each stroke segment, we obtain a  sequence of indices. Then, the occurrences of stroke segment-transition pairs are counted for creating a style-level feature. Then, we discuss the SVM classification for verifying users. 
 
+
+
+\begin{table}[!b]
+\centering  
+\vspace{-3mm}
+\caption{{Features extracted in the frame level. }}
+\vspace{0mm}
+%\small
+\begin{tabular}{|l|c|}
+    \hline \textbf{Type} & \textbf{Features }                            \\ \hline\hline
+     Positions \& Distance & $\textbf{p}(t)$, $d(t)$ \\
+        Velocity \& Acceleration & ${{\textbf{v}}}(t)$,  ${\dot{\textbf{v}}}(t)$       \\
+        Direction & ${{\textbf{D}}}(t)$          \\
+        Finger Size & $L_f(t)$, $W_f(t)$ \\        		
+        %Acceleration & ${\dot{\textbf{v}}}(t)$ \\
+        Slope angle	\& Path angle & $\theta_{xy}(t)$, $\theta_{zx}(t)$ and $\alpha(t)$\\
+        %Path angle & $\alpha(t)$\\
+        Log radius of curvature &   $\log\frac{1}{\kappa(t)}$ \\
+        \hline
+    \end{tabular}
+    \label{tab:features}
+\end{table}
 
 
 %==================================================================
@@ -182,26 +196,27 @@ To combine the frame-level features in a stroke segment into a stroke segment-le
 
 
 
-\begin{table}[!t]
-\centering  %\vspace{-3mm}
-\caption{{Features extracted in the frame level. }}
-\vspace{0mm}
-%\small
-\begin{tabular}{|l|c|}
-    \hline \textbf{Type} & \textbf{Features }                            \\ \hline\hline
-     Positions \& Distance & $\textbf{p}(t)$, $d(t)$ \\
-        Velocity \& Acceleration & ${{\textbf{v}}}(t)$,  ${\dot{\textbf{v}}}(t)$       \\
-        Direction & ${{\textbf{D}}}(t)$          \\
-        Finger Size & $L_f(t)$, $W_f(t)$ \\        		
-        %Acceleration & ${\dot{\textbf{v}}}(t)$ \\
-        Slope angle	\& Path angle & $\theta_{xy}(t)$, $\theta_{zx}(t)$ and $\alpha(t)$\\
-        %Path angle & $\alpha(t)$\\
-        Log radius of curvature &   $\log\frac{1}{\kappa(t)}$ \\
-        \hline
-    \end{tabular}
-    \label{tab:features}
-\end{table}
-
+ \begin{figure}[!t]
+ \vspace{2mm}
+ \scriptsize
+ \centering
+     \begin{tabular}{ m{0.2cm}  m{2.2cm} m{2.2cm} m{2.2cm} }
+     \hline
+   	   & \textbf{$L_s = 2,000$} & \textbf{$L_s = 4,000$} & \textbf{$L_s = 8,000$} \tabularnewline \hline \hline
+     	U1
+    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/sample2.eps}}
+    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/para2.eps}}
+	& {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/whole2.eps}}\tabularnewline \hline
+		U2
+    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/sample3.eps}}
+    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/para3.eps}}
+	& {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/whole3.eps}}\tabularnewline \hline
+\end{tabular}
+\vspace{-0mm}
+\caption {{style-level features (co-occurrence matrix) extracted from samples of two users. We choose $K=100$ for illustration purpose.
+ As the sample length increases, the shape of co-occurrence matrices remain similar, but the value for each element (i.e. the occurrences) increases. The results suggest that the matrices can model handwriting styles.
+ }\vspace{-2mm}}\label{tab:sample-para-whole}
+\end{figure}
 
 %===================================================================================
 \subsection{Style-level Feature}
@@ -241,28 +256,6 @@ We assume the content of the challenge has a fair distribution, so the length of
 For each user, we take training samples from this user as positive samples and the other users' training samples as negative samples and train a binary SVM classifier. Given a new test sample and the user identity it claims, we test it with the user's binary SVM classifier. The sample will be authorized if the classifier returns a positive response, and be rejected with a negative result. In addition, the classifiers should reject any impostors, the samples of which are never part of the training data.
 
 
-
- \begin{figure}[!t]
- \vspace{-0mm}
- \scriptsize
- \centering
-     \begin{tabular}{ m{0.2cm}  m{2.2cm} m{2.2cm} m{2.2cm} }
-     \hline
-   	   & \textbf{$L_s = 2,000$} & \textbf{$L_s = 4,000$} & \textbf{$L_s = 8,000$} \tabularnewline \hline \hline
-     	U1
-    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/sample2.eps}}
-    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/para2.eps}}
-	& {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/whole2.eps}}\tabularnewline \hline
-		U2
-    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/sample3.eps}}
-    & {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/para3.eps}}
-	& {\includegraphics[width=0.3\columnwidth]{./Graphic/pictures_states/whole3.eps}}\tabularnewline \hline
-\end{tabular}
-\vspace{-0mm}
-\caption {{style-level features (co-occurrence matrix) extracted from samples of two users. We choose $K=100$ for illustration purpose.
- As the sample length increases, the shape of co-occurrence matrices remain similar, but the value for each element (i.e. the occurrences) increases. The results suggest that the matrices can model handwriting styles.
- }\vspace{-2mm}}\label{tab:sample-para-whole}
-\end{figure}
 
 
  

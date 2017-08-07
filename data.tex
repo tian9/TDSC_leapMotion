@@ -60,8 +60,8 @@ For each round of recording, Leap Motion will record a collection of  frames, by
 
 
 
-\begin{figure}[!t]
-\vspace{-2mm}
+\begin{figure}[!b]
+%\vspace{-2mm}
 \centering
 
 \begin{tabular}{cc}
@@ -104,7 +104,8 @@ For each round of recording, Leap Motion will record a collection of  frames, by
 
 
 
-\begin{figure*}[ht]
+
+\begin{figure*}[b]
 \vspace{2mm}
 \small
 \centering
@@ -205,15 +206,6 @@ For each round of recording, Leap Motion will record a collection of  frames, by
 & & \texttt{one}   &\texttt{her}   &\texttt{game}  & \texttt{have} &\texttt{out}   &\texttt{what}   &\texttt{that}   &\texttt{it}   &\texttt{last}   & \texttt{summer} 
 \\  
 \hline 
-
-%%\end{tabular*}\vspace{-0mm}
-%%\caption{An illustration of constructing samples out of a group of words. 
-%%Each word segment's frame numbers and sample labels are listed, and all the word segments with the same sample label constitute a  sample. For each user, $20$ word segments can construct different numbers of samples due to the different writing speeds.
-%%The frame numbers and sample labels of each word segment are listed, and all the word segments with the same sample label (e.g., s1, s2) constitute a  sample. 
-%%Given each sample length $L_s$ is no larger than 2000 frames, $20$ words form different numbers of samples for Users 1 and 2, due to the different writing speeds.
-%%}\label{fig:dataWords}
-%%\end{figure*}
-
 \end{tabular*}\vspace{-0mm}
 \caption{\jing{An illustration of constructing samples from a group of words.  
 %The frame numbers and sample labels of each word segment are listed, and a
@@ -221,8 +213,6 @@ All the word segments with the same sample label (e.g., s1, s2) constitute a  sa
 Given the sample length $L_s$ that is no larger than 2000 frames, $30$ words form around 4 or 6 samples for Users 1 and 2, respectively, due to the different writing speeds.
 } \vspace{0mm}}\label{fig:dataWords}
 \end{figure*}
-
-
 
 
 \subsection{Outlier Elimination}
@@ -247,7 +237,7 @@ The median filter is applied not only on the $x$, $y$ and $z$ positions but also
 The main goal of word segmentation is to identify the segments of the handwriting trajectories that contain useful information for recognizing handwriting styles. 
 When writing on paper, we proceed from  left to right % and from the top to the bottom 
 without text overwriting. % or connecting lines between words.
-However, Leap Motion has limited writing space within which the hand motion can be captured -- after writing one or two words, a finger becomes out of the Leap Motion's field of view and it has to be moved back to the left.
+However, Leap Motion has limited writing space within which the hand motion can be captured -- after writing one or two words, a finger becomes out of the field of view and it has to be moved back to the left.
 As a result, finger trajectories of multiple words are overlapped and connected with transition trajectories that were traditionally invisible on paper, as shown in \figref{fig:segmentation} (a). %Thus, finger trajectories of real words shall be extracted, for displaying and analyzing.
 
 %============================================== 
@@ -262,6 +252,17 @@ we obtain a set of disjoint word segments shown in~\ref{fig:segmentation}(c)).
 %\figref{fig:segmentation}(c) shows an example, where the overlapped handwriting trajectory depicted in \figref{fig:segmentation} (a) is divided into three separate word segments.
 
 \jingap{\CiT sets hotkeys for starting a recording and stopping a recording. Before starting, finger(s) stay motionless and start writing after the press of the \texttt{start} hotkey. \CiT introduces a few data frames before the intent writing and includes these frames in the first word of a recording. The recording will be ended if any of the two scenarios happen: the finger(s) are out of the recording area or the \texttt{stop} hotkey is pressed. Thus, it is possible that extra frames are added to the last word before the recording ends completely.}
+
+
+
+\begin{figure*}[!t]
+\centering
+\vspace{-3mm}
+\includegraphics[width = 1.8\columnwidth]{./Graphic/SystemFlow/FeatureFlow_2017_Style_3.pdf}
+\vspace{-22mm}
+\caption{\jingap{An illustration of constructing a style-level feature, i.e., a co-occurrence matrix. The rectangular with dash lines represent various levels of features and an ellipse with solid lines represent `vocabulary'. }} \vspace{-0mm}
+\label{fig:featureFlow}
+\end{figure*}
 
 
 
