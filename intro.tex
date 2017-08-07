@@ -30,10 +30,10 @@ User authentication is one of the most important yet challenging tasks in comput
 Both physical and behavioral biometrics can be used to identify who you are. Considering that physical biometrics are not privacy-friendly and are limited in numbers, we focus on designing a behavioral-biometric-based CR authentication system.
 %\jing{We envision to design a motion-based authentication system with the following features. First, it works in a contactless manner, which has the benefit to elliminate hygiene concerns and is resilient to smudge attacks~\cite{Aviv:woot10}, i.e., finger smudges (due to oily residues) on a touch screen can reveal passwords. Second, it can be used as a complementary method when traditional biometrics-based authentication is inapplicable. For instance, fingerprints are inapplicable in several scenarios, e.g., fingerprints are unsuitable to users with dirty, greasy, or worn-out fingerprints due to their professions (e.g., miners). Third, it should be applicable to the public scenarios and thus should be resistant to shoulder surfing (i.e., observing) attacks, and acoustic environmental noises. } 
 \jing{
-We propose to use in-air handwriting style as a new biometrics for authentication. We use a depth motion sensor, Leap Motion controller~\cite{LeapOnline1} to record in-air fingertip writings as shown in Figure~\ref{fig:leap}. 
-We call the proposed behavioral-biometric-based CR authentication system as \CiT. The system has to be \textit{content-independent} for CR authentication, because the CR authentication can require a user to write any content including letters, digits, and special symbols.
+We propose to use in-air handwriting style as a new biometrics for authentication. Using a depth motion sensor, Leap Motion controller~\cite{LeapOnline1}, we record in-air fingertip writings as shown in Figure~\ref{fig:leap}. 
+We call the proposed behavioral-biometric-based CR authentication system as \CiT. 
 %Specifically, we use data extracted from finger movements when a user writes in the air.
-
+%
 The \CiT system works as follows. 
 To authenticate a user, \CiT randomly prompts a string (e.g., a few words) on the screen as a challenge, and the user has to write the string in the air as a response. Then the system performs two steps. First, determine whether the content of the handwriting is the same as the challenge. Second, verify if the handwriting is created by the user. Since  handwriting recognition can utilize existing technology~\cite{Tappert1990} and recent study shows that Leap Motion has the potential for handwriting recognition application~\cite{Vikram_handwritingleap, ICDAR15:OnlineHandwriting}, this paper focuses on the second step --- user verification based on the in-air handwriting style 
 %We design the second step of \CiT to rely on the handwriting style
@@ -41,16 +41,19 @@ To authenticate a user, \CiT randomly prompts a string (e.g., a few words) on th
 
 %\jingap{Handwriting samples}, in the form of scanned images or recorded by tablet, have been used as signature verification or writer identification for authorization or forensics purpose~\cite{Schomaker:2008}. 
 
-Building such an authentication system is challenging. First, compared to writings on tablet, the in-air writings introduce a larger amount of variability which we believe contain a richer set of biometric yet introduce extra intra-variance for multiple trial of writings from the same writer. %, and thus impose challenges for authentication. 
-However,  \CiT has to be reliable despite the handwriting variation of the same user (especially writing different content) and possible handwriting similarity between different users (especially writing the same content), and \CiT has to reject attackers.
+
+We choose in-air handwriting style combined with CR mechanism because it 
+\CiT has the following advantages. First, it does not require physical contact to any device. Thus, it eliminates hygiene concerns and is resilient to smudge attacks~\cite{Aviv:woot10}, i.e., finger smudges (due to oily residues) on a touch screen can reveal passwords.  Second, handwriting style is essentially a behavioral biometrics and thus has limited privacy issue. Third, given the rich combination of letters and numbers, the continuously written words are challenging to be synthesized because we believe that imitating arbitrary handwritings in the three dimensional (3D) space is ambitious, making it resistant to shoulder surfing.}  
+%Fourth, it is content-independent thus provide extra usability for users (e.g., no memorization needs) and resilient to replay and man-in-the-middle attacks. 
+Last but not least, it can be used as a complementary method when traditional biometrics-based authentication is inapplicable. For instance, fingerprints are inapplicable in several scenarios, e.g., fingerprints are unsuitable to users with dirty, greasy, or worn-out fingerprints due to their professions (e.g., miners). 
+
+
+Building \CiT is promising yet challenging. First, the system has to be \textit{content-independent} for CR authentication, because the CR authentication can require a user to write any content including letters, digits, and special symbols. Second, compared to writings on tablet, the in-air writings introduce a larger amount of variability which we believe contain a richer set of biometric yet introduce extra intra-variance for multiple trial of writings from the same writer. %, and thus impose challenges for authentication. 
+\CiT has to be reliable despite the handwriting variation of the same user (especially writing different content) and possible handwriting similarity between different users (especially writing the same content). %, and \CiT has to reject attackers.
 In addition, extracting a  handwriting style from 3D movements captured by Leap Motion is non-trivial because of the overlapped finger trajectories created when a user is forced to write multiple words within a limited operation range of Leap Motion (i.e., approximately 25 to 600 mm above the device~\cite{LeapOnlineOverview}). 
 
 
 
-Despite of the challenges, %we choose in-air handwriting style combined with CR mechanism because it 
-\CiT has the following advantages. First, it does not require physical contact to any device. Thus, it eliminates hygiene concerns and is resilient to smudge attacks~\cite{Aviv:woot10}, i.e., finger smudges (due to oily residues) on a touch screen can reveal passwords.  Second, handwriting style is essentially a behavioral biometrics and thus has limited privacy issue. Third, given the rich combination of letters and numbers, the continuously written words are challenging to be synthesized because we believe that imitating arbitrary handwritings in the three dimensional (3D) space is ambitious, making it resistant to shoulder surfing.}  
-Third, it is content-independent thus provide extra usability for users (e.g., no memorization needs) and resilient to replay and man-in-the-middle attacks. 
-Last but not least, it can be used as a complementary method when traditional biometrics-based authentication is inapplicable. For instance, fingerprints are inapplicable in several scenarios, e.g., fingerprints are unsuitable to users with dirty, greasy, or worn-out fingerprints due to their professions (e.g., miners). 
 
 
 
@@ -142,7 +145,7 @@ Despite that some handwritten words from User-1 and User-3 appear to be similar 
 
 
  
-To characterize handwriting styles, we introduce the concept of \textit{stroke segment}: a segment of fingertip trajectory that is small enough to serve as a writing style element.
+To overcome these challenges and to characterize handwriting styles, we introduce the concept of \textit{stroke segment}: a segment of fingertip trajectory that is small enough to serve as a writing style element.
 To make the classification computationally reasonable and better represent the writing style, we propose a transition co-occurrence matrix. %Generating features out of components directly leads to a high-dimension feature vector, which make the classification extremely computationally heavy. Thus, we use feature reduction techniques  and propose a transition co-occurrence matrix for easy classification. 
 %Each point of a writing component has several kinematic features. To reduce the feature dimensions of a writing component, we use a $K$-means clustering method to find typical writing components and design the final feature as a component transition co-occurrence matrix. 
 \jing{We use a \textit{sample}, i.e.,  a piece of handwriting (e.g., a trajectory recorded in 5 seconds,) to represent a user’s handwriting style.} By combining co-occurrence matrices extracted from data samples and an effective classification method --- Support Vector Machine (SVM), we are able to authenticate users reliably.  For example,  \figref{fig:dataWords3user} illustrates handwriting of two users. Despite that some handwritten words by User-1 and User-3 appear to be similar (e.g., \texttt{but}) yet some letters written by the same user may differ (e.g., the highlighted letters `o' and `t'), our authentication system can reliably distinguish them regardless of what they wrote. This is because \CiT is designed to be independent of text contents and utilizes features derived at the scale of a writing stroke segment.
